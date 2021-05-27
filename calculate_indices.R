@@ -56,7 +56,7 @@ calc_sub_index <- function(recorded_value_v,recorded_binary_flag_f,has_flag_F,ma
 calc_indices <- function(df)
 {
   df_extended <- df %>% 
-    dplyr::rowwise() %>%
+    rowwise() %>%
     mutate(index_c1=calc_sub_index(C1_oxford_school_closing,1,c1_flag,c1_max),
            index_c2=calc_sub_index(C2_oxford_workplace_closing,1,c2_flag,c2_max),
            index_c3=calc_sub_index(C3_oxford_cancel_public_events,1,c3_flag,c3_max),
@@ -73,6 +73,7 @@ calc_indices <- function(df)
     mutate(stringency_index= rowMeans(dplyr::select(.,index_c1:index_h1),na.rm=T),
            containment_health_index= rowMeans(dplyr::select(.,index_c1:index_h6),na.rm=T))
   
+  
   return(df_extended)
 
 }
@@ -88,7 +89,7 @@ calc_sub_index(NA,NA,1,3)
 df_indices <- calc_indices(df)
 
 # Plot the index over time
-ggplot(df_extended,aes(x=date,y=stringency_index,colour=canton))+
+ggplot(df_indices,aes(x=date,y=stringency_index,colour=canton))+
   geom_line()+
   theme_bw()
 

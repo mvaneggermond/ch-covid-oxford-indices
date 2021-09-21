@@ -88,8 +88,16 @@ calc_sub_index(NA,NA,1,3)
 
 df_indices <- calc_indices(df)
 
+readr::write_csv(df_indices,"offene_datenwerkstatt_indices.csv")
+View(df_indices)
 # Plot the index over time
 ggplot(df_indices,aes(x=date,y=stringency_index,colour=canton))+
   geom_line()+
   theme_bw()
+
+# Plot the index over time
+ggplot(df_indices,aes(x=date,y=containment_health_index,colour=canton))+
+  geom_line()+
+  theme_bw()
+
 
